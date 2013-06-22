@@ -1,0 +1,24 @@
+{
+  "boss":    true,
+  "browser": true,
+  "curly":   true,
+  "devel":   true,
+  "eqeqeq":  true,
+  "eqnull":  true,
+  "immed":   true,
+  "jquery":  true,
+  "latedef": true,
+  "newcap":  true,
+  "noarg":   true,
+  "onevar":  true,
+  "quotmark": "single",
+  "strict":  true,
+  "sub":     true,
+  "trailing": true,
+  "undef":   true,
+  "globals": {
+    "_": true,
+    "Backbone": true,
+    "module": true
+  }
+}

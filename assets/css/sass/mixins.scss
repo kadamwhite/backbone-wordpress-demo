@@ -1,0 +1,44 @@
+/**
+ * Respond-To mixin
+ *
+ * Enables grouping of media query-oriented styles together within the relevant style definition:
+ * ```scss
+ * $break-small: 320px;
+ * $break-large: 1024px;
+ *
+ * .profile-pic {
+ *   float: left;
+ *   width: 100%;
+ *   @include respond-to( handhelds ) { float: none; }
+ *   @include respond-to( medium-screens ) { width: 125px; }
+ *   @include respond-to( wide-screens ) { width: 250px; }
+ * }
+ * ```
+ * From [Responsive Web Design in Sass: Using Media Queries in Sass 3.2](http://thesassway.com/intermediate/responsive-web-design-in-sass-using-media-queries-in-sass-32#variables_in_queries_using_content)
+ */
+$break-small: 320px;
+$break-mid: 768px;
+$break-large: 1024px;
+
+@mixin respond-to( $media ) {
+  @if $media == handhelds {
+    @media only screen and ( max-width: $break-small ) { @content; }
+  }
+  @else if $media == small-tablets {
+    @media only screen and ( min-width: $break-small + 1 ) and ( max-width: $break-mid - 1 ) { @content; }
+  }
+  @else if $media == large-tablets {
+    @media only screen and ( min-width: $break-mid ) and ( max-width: $break-large - 1 ) { @content; }
+  }
+  @else if $media == wide-screens {
+    @media only screen and ( min-width: $break-large ) { @content; }
+  }
+}
+
+/**
+ * Box Sizing browser-compatibility mixin
+ */
+@mixin box-sizing( $sizing ) {
+  -moz-box-sizing: $sizing;
+  box-sizing:      $sizing;
+}
