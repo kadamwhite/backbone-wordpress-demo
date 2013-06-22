@@ -1,0 +1,23 @@
+{
+  "name": "twenty-eleven-art-gallery",
+  "title": "Twenty Eleven Art Gallery",
+  "description": "A child theme of Twenty Eleven, designed for displaying art",
+  "version": "0.1.0",
+  "homepage": "http://github.com/kadamwhite",
+  "author": {
+    "name": "K.Adam White",
+    "email": "kadamwhite@gmail.com",
+    "url": "http://www.kadamwhite.com"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.1.2",
+    "grunt-contrib-uglify": "~0.1.1",
+    "grunt-contrib-cssmin": "~0.6.0",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt-contrib-sass": "~0.2.2"
+  },
+  "keywords": []
+}

@@ -1,0 +1,55 @@
+/**
+ * Twenty Eleven Art Gallery
+ * http://github.com/kadamwhite
+ *
+ * Copyright (c) 2013 K.Adam White
+ * Licensed under the GPLv2+ license.
+ */
+
+@import "mixins.scss";
+
+// Overrides for twentyeleven styles.css
+#branding {
+  padding-bottom: 0;
+}
+#access {
+  margin-bottom: 0;
+}
+
+// Homepage Art Gallery styles
+.artwork-header-gallery {
+  clear: both;
+}
+// Hide the top banner at small sizes
+header > a {
+  @include respond-to( handhelds ) { display: none; }
+}
+
+.artwork-thumbnails {
+  background-color: white;
+  border-bottom: double silver;
+  // width: 1000px;
+  padding-top: 6px;
+  text-align: center;
+
+  a {
+    @include box-sizing( border-box );
+    display: inline-block;
+    padding: 0 5px;
+    width: 16%; // 6 across
+
+    @include respond-to( handhelds ) { width: 49%; }
+    @include respond-to( small-tablets ) { width: 32%; } // 3 across
+
+    img {
+      border: 1px solid silver;
+      display: block;
+      max-width: 100%;
+      transition: border-color 0.5s;
+    }
+
+    &:hover img {
+      border-color: black;
+    }
+  } // a
+} // .artwork-thumbnails

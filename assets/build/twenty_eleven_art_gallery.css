@@ -1,0 +1,65 @@
+/**
+ * Twenty Eleven Art Gallery
+ * http://github.com/kadamwhite
+ *
+ * Copyright (c) 2013 K.Adam White
+ * Licensed under the GPLv2+ license.
+ */
+/**
+ * Respond-To mixin
+ *
+ * Enables grouping of media query-oriented styles together within the relevant style definition:
+ * ```scss
+ * $break-small: 320px;
+ * $break-large: 1024px;
+ *
+ * .profile-pic {
+ *   float: left;
+ *   width: 100%;
+ *   @include respond-to( handhelds ) { float: none; }
+ *   @include respond-to( medium-screens ) { width: 125px; }
+ *   @include respond-to( wide-screens ) { width: 250px; }
+ * }
+ * ```
+ * From [Responsive Web Design in Sass: Using Media Queries in Sass 3.2](http://thesassway.com/intermediate/responsive-web-design-in-sass-using-media-queries-in-sass-32#variables_in_queries_using_content)
+ */
+/**
+ * Box Sizing browser-compatibility mixin
+ */
+#branding {
+  padding-bottom: 0; }
+
+#access {
+  margin-bottom: 0; }
+
+.artwork-header-gallery {
+  clear: both; }
+
+@media only screen and (max-width: 320px) {
+  header > a {
+    display: none; } }
+
+.artwork-thumbnails {
+  background-color: white;
+  border-bottom: double silver;
+  padding-top: 6px;
+  text-align: center; }
+  .artwork-thumbnails a {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0 5px;
+    width: 16%; }
+    @media only screen and (max-width: 320px) {
+      .artwork-thumbnails a {
+        width: 49%; } }
+    @media only screen and (min-width: 321px) and (max-width: 767px) {
+      .artwork-thumbnails a {
+        width: 32%; } }
+    .artwork-thumbnails a img {
+      border: 1px solid silver;
+      display: block;
+      max-width: 100%;
+      transition: border-color 0.5s; }
+    .artwork-thumbnails a:hover img {
+      border-color: black; }
