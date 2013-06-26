@@ -39,6 +39,52 @@
   header > a {
     display: none; } }
 
+.artwork-featured {
+  background-color: #2a2a2a;
+  margin-bottom: 6px; }
+
+.artwork-image,
+.artwork-information {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  vertical-align: top; }
+
+.artwork-image {
+  height: 300px; }
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .artwork-image {
+      width: 66%; } }
+  @media only screen and (min-width: 1024px) {
+    .artwork-image {
+      width: 66%; } }
+  .artwork-image img {
+    width: 100%; }
+
+.artwork-information {
+  padding: 1em 0 1em 1em; }
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .artwork-information {
+      width: 33%; } }
+  @media only screen and (min-width: 1024px) {
+    .artwork-information {
+      width: 33%; } }
+  .artwork-information h3 {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 1em; }
+  .artwork-information a {
+    color: white;
+    text-shadow: 0 2px black; }
+  .artwork-information p {
+    margin-bottom: 0.5em; }
+  .artwork-information .entry-meta,
+  .artwork-information p {
+    color: #aaa;
+    font-size: 1em; }
+
 .artwork-thumbnails {
   background-color: white;
   border-bottom: double silver;
@@ -63,3 +109,5 @@
       transition: border-color 0.5s; }
     .artwork-thumbnails a:hover img {
       border-color: black; }
+  .artwork-thumbnails.open {
+    border-top: double silver; }
