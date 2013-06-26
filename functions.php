@@ -43,6 +43,29 @@ function te_artgallery_scripts_styles() {
 	$postfix = ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) ? '' : '.min';
 	$assets_path = get_stylesheet_directory_uri() . '/assets';
 
+	// Remove out-of-date copies of Backbone and Underscore
+	wp_deregister_script( 'underscore' );
+	wp_deregister_script( 'backbone' );
+
+	// Re-register Underscore.js (using Lodash, a lighter, faster equivalent)
+	wp_register_script(
+		'underscore',
+		$assets_path . "/js/vendor/lodash.underscore{$postfix}.js",
+		array(),
+		TE_ARTGALLERY_VERSION,
+		true
+	);
+
+	// Re-register Backbone.js
+	wp_register_script(
+		'backbone',
+		$assets_path . "/js/vendor/backbone{$postfix}.js",
+		array( 'underscore', 'jquery' ),
+		TE_ARTGALLERY_VERSION,
+		true
+	);
+
+
 	wp_register_style(
 		'te_artgallery_parent',
 		get_template_directory_uri() . "/style.css",
@@ -62,7 +85,7 @@ function te_artgallery_scripts_styles() {
 		wp_enqueue_script(
 			'te_artgallery',
 			$assets_path . "/build/twenty_eleven_art_gallery{$postfix}.js",
-			array( 'jquery', 'underscore' ),
+			array( 'backbone' ),
 			TE_ARTGALLERY_VERSION,
 			true
 		);
