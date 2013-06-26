@@ -17,6 +17,25 @@ if ( is_front_page() ) :
 	if($artwork_items->have_posts()) :
 ?>
 <div class="artwork-header-gallery">
+	<script id="gallery-template" type="text/html">
+		<a class="artwork-image" href="<%= url %>" title="<%= permalink %>" rel="bookmark">
+			<%= image %>
+		</a>
+		<div class="artwork-information">
+			<h3>
+				<a href="<%= url %>" title="<%= permalink %>" rel="bookmark">
+					<%= title %>
+				</a>
+			</h3>
+			<% if ( content ) { %><%= content %><% } %>
+			<div class="entry-meta">
+				<p><%= artist %></p>
+				<% if ( dimensions ) { %><p><%= dimensions %></p><% } %>
+				<% if ( media ) {      %><p><%= media      %></p><% } %>
+			</div>
+		</div>
+	</script>
+
 	<div class="artwork-featured" style="display: none;"></div>
 	<div class="artwork-thumbnails">
 		<?php
