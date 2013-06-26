@@ -33,6 +33,45 @@ this.artgallery.views = (function( window, $, _, Backbone ) {
 		}
 	});
 
+	views.Banner = Backbone.View.extend({
+		initialize: function() {
+			this.listenToOnce( this.model, 'change', this.hide );
+		},
+
+		show: function() {
+			this.$el.slideDown();
+		},
+
+		hide: function() {
+			this.$el.slideUp();
+		}
+	});
+
+	views.Thumbnails = Backbone.View.extend({
+		// Backbone gives us a convenient syntax for defining
+		// all of our view's delegated jQuery events:
+		events: {
+			'click a': 'select'
+		},
+
+		select: function( evt ) {
+			// Have to go through evt.target: `this` is bound to the View object
+			var imageData = $( evt.target ).parent('a').data();
+
+			evt.preventDefault();
+
+			if ( this.model.id !== imageData.id ) {
+				this.model.set( imageData );
+			}
+		},
+
+		initialize: function() {
+			this.listenToOnce( this.model, 'change', function() {
+				this.$el.addClass('open');
+			});
+		}
+	});
+
 	return views;
 
 })( this, jQuery, _, Backbone );
