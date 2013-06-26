@@ -4,14 +4,27 @@
 this["artgallery"] = this["artgallery"] || {};
 
 this["artgallery"]["assets/js/templates/gallery_featured_image.tmpl"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<a class="artwork-image" href="' +((__t = ( url )) == null ? '' : __t) +'" title="' +((__t = ( permalink )) == null ? '' : __t) +'" rel="bookmark">\n\t' +((__t = ( image )) == null ? '' : __t) +'\n</a>\n<div class="artwork-information">\n\t<h3>\n\t\t<a href="' +((__t = ( url )) == null ? '' : __t) +'" title="' +((__t = ( permalink )) == null ? '' : __t) +'" rel="bookmark">\n\t\t\t' +((__t = ( title )) == null ? '' : __t) +'\n\t\t</a>\n\t</h3>\n\t'; if ( content ) { ;__p +=((__t = ( content )) == null ? '' : __t); } ;__p += '\n\t<div class="entry-meta">\n\t\t<p>' +((__t = ( artist )) == null ? '' : __t) +'</p>\n\t\t'; if ( dimensions ) { ;__p += '<p>' +((__t = ( dimensions )) == null ? '' : __t) +'</p>'; } ;__p += '\n\t\t'; if ( media ) {      ;__p += '<p>' +((__t = ( media      )) == null ? '' : __t) +'</p>'; } ;__p += '\n\t</div>\n</div>\n';}return __p};
-(function( window, $, Backbone, undefined ) {
+this.artgallery = this.artgallery || {};
+
+window.artgallery.models = (function( window, Backbone ) {
 	'use strict';
 
-	var $thumbnails, Artwork, FeaturedArtwork, artwork, featuredArtwork;
+	var models = {};
 
-	Artwork = Backbone.Model.extend({});
+	models.Artwork = Backbone.Model.extend({});
 
-	FeaturedArtwork = Backbone.View.extend({
+	return models;
+
+})( this, Backbone );
+
+this.artgallery = this.artgallery || {};
+
+this.artgallery.views = (function( window, $, _, Backbone ) {
+	'use strict';
+
+	var views = {};
+
+	views.FeaturedArtwork = Backbone.View.extend({
 		el: '.artwork-featured',
 
 		// Pull in our cached template
@@ -39,8 +52,19 @@ this["artgallery"]["assets/js/templates/gallery_featured_image.tmpl"] = function
 		}
 	});
 
-	artwork = new Artwork();
-	featuredArtwork = new FeaturedArtwork({
+	return views;
+
+})( this, jQuery, _, Backbone );
+
+// Passing in modules off a namespace is The Poor Man's Require.js
+(function( window, $, models, views, undefined ) {
+	'use strict';
+
+	var $thumbnails, artwork, featuredArtwork;
+
+	// Define our Backbone model & view instances
+	artwork = new models.Artwork();
+	featuredArtwork = new views.FeaturedArtwork({
 		model: artwork
 	});
 
@@ -70,4 +94,4 @@ this["artgallery"]["assets/js/templates/gallery_featured_image.tmpl"] = function
 		// Set the data for the model, which will trigger a view `.render()`
 		artwork.set( data );
 	});
-})( this, jQuery, Backbone );
+})( this, jQuery, this.artgallery.models, this.artgallery.views );
