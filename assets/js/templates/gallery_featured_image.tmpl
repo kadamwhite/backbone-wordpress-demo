@@ -1,0 +1,16 @@
+<a class="artwork-image" href="<%= url %>" title="<%= permalink %>" rel="bookmark">
+	<%= image %>
+</a>
+<div class="artwork-information">
+	<h3>
+		<a href="<%= url %>" title="<%= permalink %>" rel="bookmark">
+			<%= title %>
+		</a>
+	</h3>
+	<% if ( content ) { %><%= content %><% } %>
+	<div class="entry-meta">
+		<p><%= artist %></p>
+		<% if ( dimensions ) { %><p><%= dimensions %></p><% } %>
+		<% if ( media ) {      %><p><%= media      %></p><% } %>
+	</div>
+</div>

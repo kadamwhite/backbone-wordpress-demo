@@ -15,6 +15,7 @@ module.exports = function( grunt ) {
 			},
 			twenty_eleven_art_gallery: {
 				src: [
+					'assets/build/twenty_eleven_art_gallery_templates.js',
 					'assets/js/src/twenty_eleven_art_gallery.js'
 				],
 				dest: 'assets/build/twenty_eleven_art_gallery.js'
@@ -28,6 +29,17 @@ module.exports = function( grunt ) {
 			],
 			options: {
         jshintrc: '.jshintrc'
+			}
+		},
+		jst: {
+			options: {
+				namespace: 'artgallery',
+				prettify: true
+			},
+			compile: {
+				files: {
+					'assets/build/twenty_eleven_art_gallery_templates.js': ['assets/js/templates/**/*.tmpl']
+				}
 			}
 		},
 		uglify: {
@@ -91,12 +103,21 @@ module.exports = function( grunt ) {
 				options: {
 					debounceDelay: 500
 				}
+			},
+
+			template: {
+				files: ['assets/js/src/**/*.tmpl'],
+				tasks: ['jst', 'concat', 'uglify'],
+				options: {
+					debounceDelay: 500
+				}
 			}
 		}
 	} );
 
 	// Load other tasks
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-jst');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -107,7 +128,7 @@ module.exports = function( grunt ) {
 
 	// Default task.
 
-	grunt.registerTask( 'default', ['jshint', 'concat', 'uglify', 'sass', 'cssmin'] );
+	grunt.registerTask( 'default', ['jshint', 'jst', 'concat', 'uglify', 'sass', 'cssmin'] );
 
 	grunt.util.linefeed = '\n';
 };

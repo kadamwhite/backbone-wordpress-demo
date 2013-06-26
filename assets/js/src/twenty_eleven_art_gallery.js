@@ -6,11 +6,13 @@
  * Licensed under the GPLv2+ license.
  */
 
- // We don't technically need to pass in Underscore, but it's more obvious
-(function( window, $, _, undefined ) {
+(function( window, $, undefined ) {
 	'use strict';
 
-	var $headerGallery, $thumbnails, $featuredArtwork, render;
+	var $headerGallery, $thumbnails, $featuredArtwork, renderGallery;
+
+	// Grab the template, which has been compiled into a JS function using Grunt
+	renderGallery = window.artgallery['assets/js/templates/gallery_featured_image.tmpl'];
 
 	// Don't need `$(document).ready` since this script is loaded at page bottom
 	$headerGallery = $('.artwork-header-gallery');
@@ -34,17 +36,14 @@
 		// If the gallery is open, just switch the image
 		if ( $featuredArtwork.is(':visible') ) {
 			$featuredArtwork
-				.html( render( data ) )
+				.html( renderGallery( data ) )
 				// Set the ID so we can do that convenient comparison up above
 				.data( 'id', data.id );
 		} else {
 			// If the gallery is not yet open, slide it open and hide the banner
-			// First, however, we retrieve the template and define our `render` function
-			render = _.template( $( '#gallery-template' ).html() );
-
 			$('#branding').children('a').slideUp();
-			$featuredArtwork.html( render( data ) ).slideDown();
+			$featuredArtwork.html( renderGallery( data ) ).slideDown();
 			$thumbnails.addClass('open'); // For styling only
 		}
 	});
-})( this, jQuery, _ );
+})( this, jQuery );
