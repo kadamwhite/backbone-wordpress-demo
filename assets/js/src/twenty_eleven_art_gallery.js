@@ -6,43 +6,15 @@
  * Licensed under the GPLv2+ license.
  */
 
-(function( window, $, Backbone, undefined ) {
+// Passing in modules off a namespace is The Poor Man's Require.js
+(function( window, $, models, views, undefined ) {
 	'use strict';
 
-	var $thumbnails, Artwork, FeaturedArtwork, artwork, featuredArtwork;
+	var $thumbnails, artwork, featuredArtwork;
 
-	Artwork = Backbone.Model.extend({});
-
-	FeaturedArtwork = Backbone.View.extend({
-		el: '.artwork-featured',
-
-		// Pull in our cached template
-		template: window.artgallery['assets/js/templates/gallery_featured_image.tmpl'],
-
-		render: function() {
-			this.$el.html( this.template( this.model.attributes ) );
-			// Always return `this`, to enable chaining
-			return this;
-		},
-
-		show: function() {
-			this.$el.slideDown();
-		},
-
-		initialize: function( options ) {
-			// Automatically update when the data changes. `listenTo` and
-			// `listenToOnce` are part of Backbone 1.0, so you must manually
-			// re-register the latest Backbone.js (or be running WP 3.6). On the
-			// version of Backbone in 3.5, you may use this syntax instead:
-			//     var render = _.bind( this.render, this );
-			//     this.model.on( 'change', render );
-			this.listenTo( this.model, 'change', this.render );
-			this.listenToOnce( this.model, 'change', this.show );
-		}
-	});
-
-	artwork = new Artwork();
-	featuredArtwork = new FeaturedArtwork({
+	// Define our Backbone model & view instances
+	artwork = new models.Artwork();
+	featuredArtwork = new views.FeaturedArtwork({
 		model: artwork
 	});
 
@@ -72,4 +44,4 @@
 		// Set the data for the model, which will trigger a view `.render()`
 		artwork.set( data );
 	});
-})( this, jQuery, Backbone );
+})( this, jQuery, this.artgallery.models, this.artgallery.views );
