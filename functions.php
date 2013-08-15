@@ -62,7 +62,7 @@ function te_artgallery_scripts_styles() {
 		wp_enqueue_script(
 			'te_artgallery',
 			$assets_path . "/build/twenty_eleven_art_gallery{$postfix}.js",
-			array( 'jquery', 'underscore' ),
+			array( 'backbone' ),
 			TE_ARTGALLERY_VERSION,
 			true
 		);
