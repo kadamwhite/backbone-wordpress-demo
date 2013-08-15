@@ -16,6 +16,8 @@ module.exports = function( grunt ) {
 			twenty_eleven_art_gallery: {
 				src: [
 					'assets/build/twenty_eleven_art_gallery_templates.js',
+					'assets/js/src/artwork_models.js',
+					'assets/js/src/artwork_views.js',
 					'assets/js/src/twenty_eleven_art_gallery.js'
 				],
 				dest: 'assets/build/twenty_eleven_art_gallery.js'
