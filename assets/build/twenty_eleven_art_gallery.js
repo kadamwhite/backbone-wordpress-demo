@@ -52,6 +52,45 @@ this.artgallery.views = (function( window, $, _, Backbone ) {
 		}
 	});
 
+	views.Banner = Backbone.View.extend({
+		initialize: function() {
+			this.listenToOnce( this.model, 'change', this.hide );
+		},
+
+		show: function() {
+			this.$el.slideDown();
+		},
+
+		hide: function() {
+			this.$el.slideUp();
+		}
+	});
+
+	views.Thumbnails = Backbone.View.extend({
+		// Backbone gives us a convenient syntax for defining
+		// all of our view's delegated jQuery events:
+		events: {
+			'click a': 'select'
+		},
+
+		select: function( evt ) {
+			// Have to go through evt.target: `this` is bound to the View object
+			var imageData = $( evt.target ).parent('a').data();
+
+			evt.preventDefault();
+
+			if ( this.model.id !== imageData.id ) {
+				this.model.set( imageData );
+			}
+		},
+
+		initialize: function() {
+			this.listenToOnce( this.model, 'change', function() {
+				this.$el.addClass('open');
+			});
+		}
+	});
+
 	return views;
 
 })( this, jQuery, _, Backbone );
@@ -60,38 +99,27 @@ this.artgallery.views = (function( window, $, _, Backbone ) {
 (function( window, $, models, views, undefined ) {
 	'use strict';
 
-	var $thumbnails, artwork, featuredArtwork;
+	var artwork, featuredArtwork, banner, thumbnails;
 
-	// Define our Backbone model & view instances
+	// Define our Backbone model
 	artwork = new models.Artwork();
+
+	// Define the views for our little gallery. Note that these all use
+	// the same model: `thumbnails` receives click events and sets the data,
+	// `featuredArtwork` renders the featured artwork area, and `banner`
+	// just hides the top banner the first time the gallery opens
+	thumbnails = new views.Thumbnails({
+		el: '.artwork-thumbnails',
+		model: artwork
+	});
+
 	featuredArtwork = new views.FeaturedArtwork({
 		model: artwork
 	});
 
-	// Don't need `$(document).ready` since this script is loaded at page bottom
-	$thumbnails = $('.artwork-thumbnails');
-
-	// Catch any clicks on the image thumbnails
-	$thumbnails.on('click', 'a', function( evt ) {
-		var data;
-
-		evt.preventDefault();
-
-		// Get the featured image data from the link we clicked
-		data = $( this ).data();
-
-		// If we clicked the same image that's showing, do nothing
-		if ( artwork.id === data.id ) {
-			return;
-		}
-
-		if ( !artwork.id ) {
-			// If the gallery is not yet open, hide the banner
-			$('#branding').children('a').slideUp();
-			$thumbnails.addClass('open'); // For styling only
-		}
-
-		// Set the data for the model, which will trigger a view `.render()`
-		artwork.set( data );
+	banner = new views.Banner({
+		el: '#branding > a',
+		model: artwork
 	});
+
 })( this, jQuery, this.artgallery.models, this.artgallery.views );
