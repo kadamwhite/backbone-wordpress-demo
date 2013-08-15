@@ -1,32 +1,11 @@
 /*! Twenty Eleven Art Gallery - v0.1.0 - 2013-06-26
  * http://github.com/kadamwhite
  * Copyright (c) 2013; * Licensed GPLv2+ */
-(function( window, $, undefined ) {
+// We don't technically need to pass in Underscore, but it's more obvious
+(function( window, $, _, undefined ) {
 	'use strict';
 
 	var $headerGallery, $thumbnails, $featuredArtwork, render;
-
-	render = function( data ) {
-		// Concatenate the HTML and the data into a JavaScript string
-		return [
-			'<a class="artwork-image" href="', data.url, '" title="', data.permalink, '" rel="bookmark">',
-				data.image,
-			'</a>',
-			'<div class="artwork-information">',
-				'<h3>',
-					'<a href="', data.url, '" title="', data.permalink, '" rel="bookmark">',
-						data.title,
-					'</a>',
-				'</h3>',
-				data.content,
-				'<div class="entry-meta">',
-					'<p>', data.author, '</p>',
-					'<p>', data.dimensions, '</p>',
-					'<p>', data.media, '</p>',
-				'</div>',
-			'</div>'
-		].join('');
-	};
 
 	// Don't need `$(document).ready` since this script is loaded at page bottom
 	$headerGallery = $('.artwork-header-gallery');
@@ -55,9 +34,12 @@
 				.data( 'id', data.id );
 		} else {
 			// If the gallery is not yet open, slide it open and hide the banner
+			// First, however, we retrieve the template and define our `render` function
+			render = _.template( $( '#gallery-template' ).html() );
+
 			$('#branding').children('a').slideUp();
 			$featuredArtwork.html( render( data ) ).slideDown();
 			$thumbnails.addClass('open'); // For styling only
 		}
 	});
-})( this, jQuery );
+})( this, jQuery, _ );
