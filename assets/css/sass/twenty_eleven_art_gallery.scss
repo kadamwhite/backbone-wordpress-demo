@@ -25,6 +25,61 @@ header > a {
   @include respond-to( handhelds ) { display: none; }
 }
 
+// Styles for the featured images
+.artwork-featured {
+  background-color: #2a2a2a;
+  margin-bottom: 6px;
+}
+
+.artwork-image,
+.artwork-information {
+  @include box-sizing( border-box );
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  vertical-align: top;
+}
+
+.artwork-image {
+  height: 300px;
+
+  @include respond-to( large-tablets ) { width: 66%; }
+  @include respond-to( wide-screens ) { width: 66%; }
+
+  img {
+    // Match size of container
+    width: 100%;
+  }
+} // .artwork-image
+
+.artwork-information {
+  padding: 1em 0 1em 1em;
+
+  @include respond-to( large-tablets ) { width: 33%; }
+  @include respond-to( wide-screens ) { width: 33%; }
+
+  h3 {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+
+  a {
+    color: white;
+    text-shadow: 0 2px black;
+  }
+
+  p {
+    margin-bottom: 0.5em;
+  }
+
+  .entry-meta,
+  p {
+    color: #aaa;
+    font-size: 1em;
+  }
+} // .artwork-information
+
 .artwork-thumbnails {
   background-color: white;
   border-bottom: double silver;
@@ -52,4 +107,8 @@ header > a {
       border-color: black;
     }
   } // a
+
+  &.open {
+    border-top: double silver;
+  }
 } // .artwork-thumbnails
